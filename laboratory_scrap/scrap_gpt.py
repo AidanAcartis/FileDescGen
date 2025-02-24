@@ -20,21 +20,24 @@ def scrap_chatgpt():
         time.sleep(5)  # Attendre que la page se charge
 
         try:
-            # Sélectionner le champ <textarea> en utilisant le sélecteur demandé
+            # Sélectionner le champ <textarea>
             textarea = driver.find_element(By.CSS_SELECTOR, "textarea.block.h-10.w-full.resize-none.border-0.bg-transparent.px-0.py-2.text-token-text-primary.placeholder\\:text-token-text-tertiary")
             print("✅ Textarea trouvé !")
         except Exception as e:
             print("❌ Textarea non trouvé :", e)
             driver.quit()
-            return
+            exit()
 
-        if textarea:
-            # Faire une action sur l'élément (taper du texte)
-            textarea.send_keys("Monkey D. Luffy")
-            # Envoyer l'action d'ENTER pour simuler un changement
-            textarea.send_keys(Keys.ENTER)
-            print("✅ Message envoyé à la zone de texte !")
+        # Vérifier si l'élément est caché et le rendre visible
+        driver.execute_script("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible';", textarea)
 
+        # Attendre un peu pour voir si le changement prend effet
+        time.sleep(1)
+
+        # Tenter d'envoyer du texte
+        textarea.send_keys("Mon texte ici")
+        textarea.send_keys(Keys.ENTER)
+        print("✅ Texte envoyé !")
         # Attendre environ 10 secondes avant de rechercher le bouton
         time.sleep(10)
         print("Attente terminée, recherche du bouton...")
