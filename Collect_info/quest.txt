@@ -1,0 +1,62 @@
+Quest1:
+Pourquoi il y a ces chiffres avec '#', avant mes commandes:"clear
+#1740645445
+cat ~/.bash_history
+#1740645445
+cat ~/.bash_history
+#1740645474
+cat ~/.bash_history
+#1740645505
+ls -l
+#1740645509
+cat ~/.bash_history
+#1740645557
+ls 
+"
+c'est la sortie de 'cat ~/.bash_history'
+
+Voici une configuration dans '~/.bashrc':
+# Ajouter le 26 février 2025
+HISTTIMEFORMAT='%T '  # Afficher uniquement l'heure
+export HISTTIMEFORMAT
+export PROMPT_COMMAND="history -n; history -a; history -c; history -r; $PROMPT_COMMAND"
+
+Quest2:
+Mon probleme avec 'history' c'est qu'elle ne peut pas etre mise a jour avec les commandes lances dans d'autres terminaux 
+pour d'autres directory. Je prefere utiliser 'cat ~/.bash_history' pour voir tous les commandes lances dans la machine.
+Et mon but c'est de stocker les commandes lances (resultats de 'cat bash_history'), dans une base de donne
+:"# Configuration de la connexion à la base de données
+db_config = {
+    "host": "localhost",
+    "user": "jennie",  # Remplace par ton utilisateur MySQL
+    "password": "nerd",  # Remplace par ton mot de passe MySQL
+    "database": "commandes_db"
+}
+" like this 'INSERT INTO historique_commandes (type, Nom, heure_ouverture, heure_fermeture, date)'
+dans type, on met Commande, dans Nom, on met la commande elle meme, 
+dans 'heure_ouverture', on met l'heure de lancement du commande, 
+dans 'heure_fermeture', on met l'heure de fin de lancement du commande,
+et dans date on met la date d'aujourd'hui puisque le but c'est de stocker tous les commandes lances aujourd'hui
+dans la table, donner comment le faire selon ce resultat:"#1740645474
+cat ~/.bash_history
+#1740645505
+ls -l
+#1740645509
+cat ~/.bash_history
+#1740645557
+ls 
+" de '~/.bash_history' et le script python pour le faire
+
+Quest3:
+error:"aidan@aidan:~/Documents/Projects/Visualisation/Collect_info$ python3 save_history.py 
+Traceback (most recent call last):
+  File "/home/aidan/Documents/Projects/Visualisation/Collect_info/save_history.py", line 42, in <module>
+    timedelta(seconds=2)).strftime("%H:%M:%S")
+NameError: name 'timedelta' is not defined
+aidan@aidan:~/Documents/Projects/Visualisation/Collect_info$ 
+"
+Quest4:
+je veux qu'ils soient ranges par ordre du temps et du date dans la base de donne, du plus ancien au plus recent
+
+
+ 
