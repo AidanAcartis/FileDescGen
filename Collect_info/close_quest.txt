@@ -1,0 +1,11 @@
+Corriger cette partie " else
+            # Si le fichier est fermé, récupérer la date de dernière modification
+            close_time=$(stat --format='%y' "$file" | awk '{print $2}')
+        fi
+
+        # Afficher le résultat formaté
+        echo "$open_time $close_time $file""
+
+comme ceci, instruction:
+On va stocker la sortie de cette commande 'grep -A 1 "Fenêtres fermées" ~/window_changes.log | grep -v "^--$"
+' et 

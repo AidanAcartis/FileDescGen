@@ -58,5 +58,50 @@ aidan@aidan:~/Documents/Projects/Visualisation/Collect_info$
 Quest4:
 je veux qu'ils soient ranges par ordre du temps et du date dans la base de donne, du plus ancien au plus recent
 
+Quest5:
+j'ai execute ceci :"lsof +D /home/aidan/ | grep -Ev 'bash|vi|vim|nano|emacs|firefox|chrome|brave|python|java|node|gcc|code'
+"
+dans la colonne commandes je ne veux voir que 'bash|vi|vim|nano|emacs|firefox|chrome|brave|python|java|node|gcc|code', alors
+que je vois encore d'autres'gvfsd-mtp 22879 aidan  cwd    DIR    8,2      4096 5767170 /home/aidan
+gvfsd-mtp 
+gjs       
+gjs       
+gjs       
+gjs       
+gjs       
+gjs       
+gjs       
+gnome-ter 
+gnome-ter 
+gnome-ter 
+gnome-ter
+gvfsd-net 
+gvfsd-net 
+gvfsd-dns 
+lsof      
+grep      
+lsof      
+sleep, nautilus, update-no, gvfsd-met, obexd, tracker-m, ibus-engi, snap-stor, gsd-print, xdg-deskt, gsd-house,
+,...
 
- 
+aidan@aidan:~/Documents/Projects/Visualisation/Collect_info$ lsof +D /home/aidan/ | awk '{if ($1 ~ /^(bash|vi|vim|nano|emacs|firefox|chrome|brave|python|java|node|gcc|clang|code|subl|gedit|atom|tmux|ssh|curl|wget|java|ruby|perl|php|zsh|fish|gnome-terminal|xterm|konsole|gnome-shell|nautilus|docker|vscode|matlab|sqlite3|mongod|mysql|redis-server|postgres|nmap|wget|curl|gimp|inkscape|blender|steam|zoom|spotify|vlc)$/ && $9 !~ /^\/home\/aidan\/\./) print $0}'
+
+code      32468 aidan  cwd    DIR    8,2      4096 6111539 /home/aidan/Documents/Projects/Visualisation/Collect_info/collect_command.py
+code      32485 aidan  cwd    DIR    8,2      4096 6111539 /home/aidan/Documents/Projects/Visualisation/Collect_info/collection.py
+code      32502 aidan  cwd    DIR    8,2      4096 6111539 /home/aidan/Documents/Projects/Visualisation/Collect_info/save_history.py
+aidan@aidan:~/Documents/Projects/Visualisation/Collect_info$ 
+
+
+lsof +D /home/aidan/ | awk '{if ($1 ~ /^(bash|vi|vim|nano|emacs|firefox|chrome|brave|python|java|node|gcc|clang|code|subl|gedit|atom|tmux|ssh|curl|wget|java|ruby|perl|php|zsh|fish|gnome-terminal|xterm|konsole|gnome-shell|nautilus|docker|vscode|matlab|sqlite3|mongod|mysql|redis-server|postgres|nmap|wget|curl|gimp|inkscape|blender|steam|zoom|spotify|vlc)$/ && $9 !~ /^\/home\/aidan\/\./) print $0}'
+
+
+aidan@aidan:~/Documents/Projects/Visualisation/Collect_info$ ./try_script.sh
+/home/aidan/Documents/Projects/Visualisation/Collect_info/FD_lsof.md                      2025-02-28           19:09:05.147862857    19:09:05.136862857  
+/home/aidan/Documents/Projects/Visualisation/Collect_info/COMMAND_lsof.md                 2025-02-28           19:05:59.174866187    19:05:59.138866188  
+/home/aidan/Documents/Projects/Visualisation/Collect_info/try_script.sh                   2025-03-01           00:35:24.925512220    N/A                 
+/home/aidan/Documents/Projects/Visualisation/Collect_info/about_site.md                   2025-02-28           23:45:20.299566027    11:14:02.315870061  
+/home/aidan/Documents/Projects/Visualisation/Collect_info/Collect_command/script.sh       2025-02-28           23:45:21.166566012    14:20:42.053982179  
+/home/aidan/Documents/Projects/Visualisation/Collect_info/quest.txt                       2025-02-28           23:42:32.395569034    23:42:32.361569035  
+/home/aidan/Downloads/Processus Stochastique (1).pdf                                      2025-02-28           11:39:28.856991051    11:39:29.122991046  
+/home/aidan/Pictures/Wallpapers/Babe.png                                                  2025-02-28           10:05:19.846092214    10:07:29.000000000  
+aidan@aidan:~/Documents/Projects/Visualisation/Collect_info$ 
