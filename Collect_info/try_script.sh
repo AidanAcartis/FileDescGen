@@ -19,6 +19,7 @@ find /home/aidan/ -type f ! -path '*/.*' -atime 0 2>/dev/null | while read file;
         fi
 
         # Afficher le résultat formaté
-        echo "$open_time $close_time $file"
+        #echo "$open_time $close_time $file"
+        echo "$(basename "$file")"
     fi
 done | sort -k1,1 -k2,2

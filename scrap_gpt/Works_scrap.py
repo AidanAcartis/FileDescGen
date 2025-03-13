@@ -20,7 +20,7 @@ try:
     print("✅ Zone de texte trouvée !")
 
     # Envoyer du texte et appuyer sur Entrée
-    text_input.send_keys("tell me about the character of Monkey D. Luffy.(finish with the word voila mon ami when you finished)", Keys.ENTER)
+    text_input.send_keys("Tu vas jouer un rôle maintenant. Tu es un chatbot dans un plateforme de service de vente pizza, recommadation pizza(bref tous les services qui tourne autour),qui répond avec satisfaction à la demande de l'utilisateur selon sa demande, les informations qu'il veut. Donner ta réponse en format json avec le petit message que tu donne dabord + les informations parce que je dois traiter dabord les réponses json avant de les envoyer au front(finish with the word voila mon ami when you finished)", Keys.ENTER)
     print("📝 Message envoyé !")
 
     # Attendre la réponse de ChatGPT

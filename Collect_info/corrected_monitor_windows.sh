@@ -18,7 +18,7 @@ while true; do
 
     # Vérifier la dernière date enregistrée dans le fichier de log
     if [ -f "$LOG_FILE" ] && [ -s "$LOG_FILE" ]; then
-        LAST_LOG_DATE=$(tail -n 1 "$LOG_FILE" | awk '{print $1}')
+        LAST_LOG_DATE=$(grep -E "^[0-9]{4}-[0-9]{2}-[0-9]{2}" "$LOG_FILE" | tail -n 1 | awk '{print $1}')
     else
         LAST_LOG_DATE=""
     fi
