@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# Répertoire du script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Fichier log à analyser
 LOG_FILE="$HOME/window_changes.log"
 
-# Fichiers de sortie
-OPENED_FILE="$HOME/Opened_file.txt"
-CLOSED_FILE="$HOME/Closed_file.txt"
+# Fichiers de sortie (dans le même répertoire que le script)
+OPENED_FILE="$SCRIPT_DIR/Opened_file.txt"
+CLOSED_FILE="$SCRIPT_DIR/Closed_file.txt"
 
 # Vider les fichiers avant insertion
 > "$OPENED_FILE"
