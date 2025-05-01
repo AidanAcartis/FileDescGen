@@ -1,5 +1,5 @@
 #!/bin/bash
-export DISPLAY=:1
+export DISPLAY=:0
 export XAUTHORITY=/home/aidan/.Xauthority
 
 LOG_FILE="$HOME/window_changes.log"  # Fichier de log pour enregistrer les changements
