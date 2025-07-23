@@ -63,6 +63,14 @@ if commandes:
 else:
     print("Aucune commande enregistrée aujourd'hui.")
 
+# Écrire les données dans un fichier texte
+with open("data_command.txt", "w", encoding="utf-8") as f:
+    for cmd in commandes:
+        # cmd[1:] exclut le timestam
+        ligne = f"{cmd[5]}, {cmd[3]}, {cmd[4]}, {cmd[1]}, {cmd[2]}\n"
+        f.write(ligne)
+print("Les données ont aussi été enregistrées dans 'data_command.txt'.")
+
 # Fermer la connexion
 cursor.close()
 conn.close()
