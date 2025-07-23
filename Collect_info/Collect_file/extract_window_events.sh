@@ -21,12 +21,14 @@ CLOSED_FILE="$SCRIPT_DIR/Closed_file.txt"
 #   > "$OPENED_FILE"
 
 paste -d ' ' \
+  <(grep -A 0 "Nouvelles fenêtres ajoutées" "$LOG_FILE" | grep -v "^--$" | awk '{print $1}' | grep .) \
   <(grep -A 0 "Nouvelles fenêtres ajoutées" "$LOG_FILE" | grep -v "^--$" | awk '{print $2}' | grep .) \
   <(grep -A 1 "Nouvelles fenêtres ajoutées" "$LOG_FILE" | grep -v "^--$" | awk '{for (i=1;i<=NF;i++) if ($i ~ /^aidan-/) {for (j=i+1;j<=NF;j++) printf $j" "; print "";}}' | grep .) \
   > "$OPENED_FILE"
 
 # Extraction des fenêtres fermées avec horodatage
 paste -d ' ' \
+  <(grep -A 0 "Fenêtres fermées" "$LOG_FILE" | grep -v "^--$" | awk '{print $1}' | grep .) \
   <(grep -A 0 "Fenêtres fermées" "$LOG_FILE" | grep -v "^--$" | awk '{print $2}' | grep .) \
   <(grep -A 1 "Fenêtres fermées" "$LOG_FILE" | grep -v "^--$" | awk '{for (i=1;i<=NF;i++) if ($i ~ /^aidan-/) {for (j=i+1;j<=NF;j++) printf $j" "; print "";}}' | grep .) \
   > "$CLOSED_FILE"
