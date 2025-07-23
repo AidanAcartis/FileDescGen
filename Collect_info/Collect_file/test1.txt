@@ -1,5 +1,16 @@
+error :
+"aidan@aidan-Lenovo-N50-70:~/Documents/Projects/Visualisation/Collect_info/Collect_file$ python3 get_collect_file.py 
+Traceback (most recent call last):
+  File "/home/aidan/Documents/Projects/Visualisation/Collect_info/Collect_file/get_collect_file.py", line 26, in <module>
+    close_time, close_filename = parse_line(closed_lines[j])
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/aidan/Documents/Projects/Visualisation/Collect_info/Collect_file/get_collect_file.py", line 4, in parse_line
+    filename = parts[1]
+               ~~~~~^^^
+IndexError: list index out of range"
 
-def parse_line(line):
+code :
+"def parse_line(line):
     parts = line.strip().split(" ", 1)
     time = parts[0]
     filename = parts[1]
@@ -34,4 +45,25 @@ for i, open_line in enumerate(opened_lines):
 with open("collected_file.txt", "w", encoding="utf-8") as f_true:
     f_true.writelines(true_file_lines)
 
-print("Fichier 'collected_file.txt' généré avec succès.")
+print("Fichier 'collected_file.txt' généré avec succès.")"
+
+'OPened_file_true.txt':
+"10:18:16 fenêtres ajoutées :
+10:18:18 collect_script.sh
+10:18:26 fenêtres ajoutées :
+10:18:34 extract_window_events.sh
+10:19:13 fenêtres ajoutées :
+10:19:15 collect_script.sh"
+
+'Closed_file_true.txt':
+"10:18:16 fermées :
+10:18:18 Preview READme.md
+10:18:26 fermées :
+10:18:34 collect_script.sh
+10:19:13 fermées :
+10:19:15 extract_window_events.sh
+10:19:35 fermées :
+10:20:18 collect_script.sh"
+
+C'est quoi le probleme ?
+
