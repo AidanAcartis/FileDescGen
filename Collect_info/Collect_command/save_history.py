@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 # Configuration de la connexion à la base de données
 db_config = {
     "host": "localhost",
-    "user": "jennie",  # Remplace par ton utilisateur MySQL
-    "password": "nerd",  # Remplace par ton mot de passe MySQL
+    "user": "jennie",        # Remplace par ton utilisateur MySQL
+    "password": "nerd",      # Remplace par ton mot de passe MySQL
     "database": "commandes_db"
 }
 
@@ -38,37 +38,47 @@ for line in lines:
         # Convertir le timestamp en heure et date
         date_du_jour = datetime.fromtimestamp(current_timestamp).strftime("%Y-%m-%d")
 
-        # Vérifier si la commande est d'aujourd'hui
         if date_du_jour == date_aujourdhui:
-            heure_ouverture = datetime.fromtimestamp(current_timestamp).strftime("%H:%M:%S")
-            heure_fermeture = (datetime.fromtimestamp(current_timestamp) + timedelta(seconds=2)).strftime("%H:%M:%S")
+            start_dt = datetime.fromtimestamp(current_timestamp)
+            end_dt = start_dt + timedelta(seconds=2)
 
-            # Ajouter uniquement les commandes d'aujourd'hui
-            commandes.append((current_timestamp, "Commande", line, heure_ouverture, heure_fermeture, date_du_jour))
+            heure_ouverture = start_dt.strftime("%H:%M:%S")
+            heure_fermeture = end_dt.strftime("%H:%M:%S")
+            duree_minutes = round((end_dt - start_dt).total_seconds() / 60, 3)
 
-# Trier la liste des commandes par timestamp (du plus ancien au plus récent)
+            commandes.append((
+                current_timestamp,
+                "Commande",
+                line,
+                heure_ouverture,
+                heure_fermeture,
+                date_du_jour,
+                duree_minutes
+            ))
+
+# Trier les commandes par timestamp
 commandes.sort(key=lambda x: x[0])
 
-# Insérer les données dans la base de données (sans le timestamp)
+# Insérer dans MySQL (sans le timestamp)
 sql = """
-INSERT INTO historique_commandes (type, Nom, heure_ouverture, heure_fermeture, jour)
-VALUES (%s, %s, %s, %s, %s)
+INSERT INTO historique_commandes (type, Nom, heure_ouverture, heure_fermeture, jour, duree)
+VALUES (%s, %s, %s, %s, %s, %s)
 """
 
-# Exécuter la requête en excluant le timestamp (index 0)
 if commandes:
-    cursor.executemany(sql, [cmd[1:] for cmd in commandes])
+    cursor.executemany(sql, [cmd[1:] for cmd in commandes])  # Exclure timestamp (index 0)
     conn.commit()
     print(f"{len(commandes)} commandes d'aujourd'hui insérées dans la base de données.")
 else:
     print("Aucune commande enregistrée aujourd'hui.")
 
-# Écrire les données dans un fichier texte
+# Écrire dans le fichier texte
 with open("data_command.txt", "w", encoding="utf-8") as f:
     for cmd in commandes:
-        # cmd[1:] exclut le timestam
-        ligne = f"{cmd[5]}, {cmd[3]}, {cmd[4]}, {cmd[1]}, {cmd[2]}\n"
+        # Format: jour, heure_ouverture, heure_fermeture, type, commande, durée
+        ligne = f"{cmd[5]}, {cmd[3]}, {cmd[4]}, {cmd[6]:.3f}, {cmd[1]}, {cmd[2]}\n"
         f.write(ligne)
+
 print("Les données ont aussi été enregistrées dans 'data_command.txt'.")
 
 # Fermer la connexion
