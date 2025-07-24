@@ -3,7 +3,7 @@ from pathlib import Path
 #File source
 file1 = Path("../Collect_file/data_file.txt")
 file2 = Path("../Collect_command/data_command.txt")
-output_file = Path("./data_collect.txt")
+output_file = Path("../data/data_collect.txt")
 
 # Store formatted line
 lines=[]
