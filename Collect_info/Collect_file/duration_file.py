@@ -2,7 +2,7 @@ from datetime import datetime
 from collections import defaultdict
 
 input_file = "collected_file.txt"
-output_file = "file_duration.txt"
+output_file = "data_file.txt"
 
 # Dictionnaire pour stocker les durées cumulées par titre
 durations = defaultdict(float)
