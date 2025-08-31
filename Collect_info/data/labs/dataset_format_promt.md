@@ -1,83 +1,106 @@
-Excellent 🚀 tu as bien compris la logique : pour un fine-tune **FLAN-T5 avec PEFT/LoRA**, il faut transformer ton dataset en un format **(prompt → réponse)**.
+Parfait 👍 je vois exactement ce que tu veux : on doit **mettre à jour ton schéma d’input/output et ton preprocessing** pour inclure non seulement le filename, mais aussi **l’extension, le répertoire et l’application**, et modifier la consigne afin que la sortie soit une description complète (et pas seulement la fonction du fichier).
 
-On va l’adapter à **ton objectif** (générer une description de fichier à partir de son nom).
+Voici la version corrigée et adaptée à ton nouvel objectif 👇
 
 ---
 
-## 1️⃣ Ton dataset doit avoir des **paires input/output**
+### 1️⃣ Dataset JSONL
 
-* **Input (prompt)** : une instruction claire + le nom du fichier.
-* **Output (label)** : la description attendue en français ou en anglais.
-
-👉 Exemple en JSONL (format courant pour HuggingFace datasets) :
+Chaque exemple doit contenir toutes les infos nécessaires :
 
 ```jsonl
-{"id": "0", "filename": "extract_window_events.sh", "description": "Fichier qui extrait les événements de la fenêtre de la machine."}
-{"id": "1", "filename": "analyse_logs.py", "description": "Script qui analyse les journaux système."}
-{"id": "2", "filename": "convert_to_pdf", "description": "Programme qui convertit un document en PDF."}
-{"id": "3", "filename": "nettoyer_fichiers_temp", "description": "Script qui supprime les fichiers temporaires."}
-{"id": "4", "filename": "backup_database.sql", "description": "Fichier qui sauvegarde la base de données."}
-
+{"id": "0", "filename": "extract_window_events.sh", "extension": "sh", "directory": "Collect_file", "application": "Visual Studio Code", "description": "Script qui extrait les événements de la fenêtre de la machine. Il se trouve dans le dossier Collect_file et ouvert avec Visual Studio Code."}
+{"id": "1", "filename": "analyse_logs.py", "extension": "py", "directory": "Analyse", "application": "PyCharm", "description": "Script Python qui analyse les journaux système. Il est situé dans le dossier Analyse et ouvert avec PyCharm."}
+{"id": "2", "filename": "backup_database.sql", "extension": "sql", "directory": "DB_Backup", "application": "DBeaver", "description": "Fichier SQL qui sauvegarde la base de données. Il se trouve dans le dossier DB_Backup et ouvert avec DBeaver."}
+{"id": "3", "filename": "rapport.html", "extension": "html", "directory": "Reports", "application": "Google Chrome", "description": "Page HTML qui affiche un rapport. Elle se trouve dans le dossier Reports et ouverte avec Google Chrome."}
 ```
 
 ---
 
-## 2️⃣ Définir ton **prompt d’entraînement**
+### 2️⃣ Prompt d’entraînement
 
-Comme dans le cas de *DialogSum*, il faut construire un **input explicite** pour guider le modèle.
-Ton **prompt pourrait être** :
+On corrige la consigne pour refléter ton objectif :
+
+**Nouveau prompt (plus explicite) :**
 
 ```
-Décrire la fonction du fichier suivant : {filename}
+Décrire le fichier suivant. Inclure :
+- ce qu'il est selon l'extension ({extension})
+- ce qu'il fait selon son nom ({filename})
+- où il est situé ({directory})
+- quelle application l'ouvre ({application})
+
+Fichier : {filename}
+Extension : {extension}
+Répertoire : {directory}
+Application : {application}
 Description :
 ```
 
----
-
-### Exemple transformé :
-
-* **Input donné au modèle** :
+👉 Exemple :
 
 ```
-Décrire la fonction du fichier suivant : extract_window_events.sh
+Décrire le fichier suivant. Inclure :
+- ce qu'il est selon l'extension (sh)
+- ce qu'il fait selon son nom (extract_window_events.sh)
+- où il est situé (Collect_file)
+- quelle application l'ouvre (Visual Studio Code)
+
+Fichier : extract_window_events.sh
+Extension : sh
+Répertoire : Collect_file
+Application : Visual Studio Code
 Description :
 ```
 
-* **Output attendu** :
+**Output attendu :**
 
 ```
-Fichier qui extrait les événements de la fenêtre de la machine.
+Script qui extrait les événements de la fenêtre de la machine. Il se trouve dans le dossier Collect_file et ouvert avec Visual Studio Code.
 ```
 
 ---
 
-## 3️⃣ Code preprocessing adapté
-
-Quand tu tokenizes, tu construis le prompt comme ça :
+### 3️⃣ Preprocessing corrigé (HuggingFace)
 
 ```python
 def tokenize_function(example):
-    start_prompt = "Décrire la fonction du fichier suivant : "
-    end_prompt = "\nDescription : "
+    start_prompt = (
+        "Décrire le fichier suivant. Inclure :\n"
+        "- ce qu'il est selon l'extension ({extension})\n"
+        "- ce qu'il fait selon son nom ({filename})\n"
+        "- où il est situé ({directory})\n"
+        "- quelle application l'ouvre ({application})\n\n"
+        "Fichier : {filename}\n"
+        "Extension : {extension}\n"
+        "Répertoire : {directory}\n"
+        "Application : {application}\n"
+        "Description : "
+    )
     
-    # Construire l'input (prompt complet)
-    prompt = [start_prompt + fname + end_prompt for fname in example["filename"]]
+    # Construire l'input prompt dynamique
+    prompt = [
+        start_prompt.format(
+            filename=ex["filename"],
+            extension=ex["extension"],
+            directory=ex["directory"],
+            application=ex["application"]
+        )
+        for ex in example
+    ]
     
-    # Tokenizer input + label
+    # Tokenizer input + output
     example['input_ids'] = tokenizer(prompt, padding="max_length", truncation=True, return_tensors="pt").input_ids
     example['labels'] = tokenizer(example["description"], padding="max_length", truncation=True, return_tensors="pt").input_ids
     
     return example
-
-tokenized_datasets = dataset.map(tokenize_function, batched=True)
-tokenized_datasets = tokenized_datasets.remove_columns(['id', 'filename', 'description'])
 ```
 
 ---
 
-## 4️⃣ Résultat final
+### 4️⃣ Résultat final attendu
 
-Ton dataset prétraité ressemblera à ceci :
+Ton dataset après preprocessing :
 
 ```python
 DatasetDict({
@@ -98,13 +121,13 @@ DatasetDict({
 
 ---
 
-✅ **Donc, résumé pour ton dataset** :
+✅ Résumé :
 
-* Format JSONL avec `{id, filename, description}`.
-* Prompt clair : `"Décrire la fonction du fichier suivant : {filename}\nDescription :"`.
-* Output = phrase descriptive courte.
-* Préprocessing : générer `input_ids` (prompt) et `labels` (description).
+* **Dataset enrichi** : `filename + extension + directory + application + description`.
+* **Prompt explicite** : guide le modèle à produire une description complète et claire.
+* **Labels** : la phrase descriptive attendue.
+* **Preprocessing** : adapte l’input prompt pour chaque exemple.
 
 ---
 
-Veux-tu que je te propose **2 variantes de prompt** (une courte, une plus explicite) pour tester laquelle donne de meilleures descriptions lors du fine-tuning ?
+Veux-tu que je te propose **2 variantes de prompt** (une très courte, une détaillée comme ci-dessus) pour que tu puisses tester lequel donne les meilleures descriptions lors du fine-tuning ?

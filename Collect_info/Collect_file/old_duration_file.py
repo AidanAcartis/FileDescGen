@@ -6,18 +6,10 @@ output_file = "data_file.txt"
 
 # Dictionnaire pour stocker les durées cumulées par titre
 durations = defaultdict(float)
-last_info = {}  # pour mémoriser date et heures par titre
 
 def normalize_title(title):
     # Enlève le "● " devant le nom si présent
     return title.lstrip('● ').strip()
-
-def get_entry_type(title):
-    # Type 1 → contient " - " (file - directory - app)
-    if " - " in title:
-        return "file-directory-App"
-    # Type 2 → juste un répertoire
-    return "directory"
 
 with open(input_file, "r", encoding="utf-8") as f:
     for line in f:
@@ -39,13 +31,16 @@ with open(input_file, "r", encoding="utf-8") as f:
             duration_min = duration_sec / 60
 
             durations[title] += duration_min
-            last_info[title] = (date, start_time_str, end_time_str)
 
-# Écriture des résultats
+# # Écriture des résultats dans un fichier (une seule fois)
 with open(output_file, "w", encoding="utf-8") as f_out:
+    # for title, total_min in durations.items():
+    #     f_out.write(f"{total_min:.2f} {title}\n")
     for title, total_min in sorted(durations.items(), key=lambda x: x[1], reverse=True):
-        date, start_time_str, end_time_str = last_info[title]
-        entry_type = get_entry_type(title)
-        f_out.write(f"{date} {start_time_str} {end_time_str} {total_min:.2f} {entry_type}   {title}\n")
+        f_out.write(f"{date} {start_time_str} {end_time_str} {total_min:.2f} {"file-directory-App"}   {title}\n")
+
+
 
 print(f"Durées totales (en minutes) enregistrées dans {output_file}")
+
+
