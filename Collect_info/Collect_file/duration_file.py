@@ -17,7 +17,7 @@ def get_entry_type(title):
     if " - " in title:
         return "file-directory-App"
     # Type 2 → juste un répertoire
-    return "directory"
+    return "directory/App"
 
 with open(input_file, "r", encoding="utf-8") as f:
     for line in f:
