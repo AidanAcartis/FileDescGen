@@ -12,11 +12,12 @@ On va l’adapter à **ton objectif** (générer une description de fichier à p
 👉 Exemple en JSONL (format courant pour HuggingFace datasets) :
 
 ```jsonl
-{"id": "train_0", "filename": "extract_window_events.sh", "description": "Fichier qui extrait les événements de la fenêtre de la machine."}
-{"id": "train_1", "filename": "analyse_logs.py", "description": "Script qui analyse les journaux système."}
-{"id": "train_2", "filename": "convert_to_pdf", "description": "Programme qui convertit un document en PDF."}
-{"id": "train_3", "filename": "nettoyer_fichiers_temp", "description": "Script qui supprime les fichiers temporaires."}
-{"id": "train_4", "filename": "backup_database.sql", "description": "Fichier qui sauvegarde la base de données."}
+{"id": "0", "filename": "extract_window_events.sh", "description": "Fichier qui extrait les événements de la fenêtre de la machine."}
+{"id": "1", "filename": "analyse_logs.py", "description": "Script qui analyse les journaux système."}
+{"id": "2", "filename": "convert_to_pdf", "description": "Programme qui convertit un document en PDF."}
+{"id": "3", "filename": "nettoyer_fichiers_temp", "description": "Script qui supprime les fichiers temporaires."}
+{"id": "4", "filename": "backup_database.sql", "description": "Fichier qui sauvegarde la base de données."}
+
 ```
 
 ---
