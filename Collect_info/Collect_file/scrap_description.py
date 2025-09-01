@@ -37,9 +37,17 @@ try:
     text_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.ProseMirror")))
     print("Print the output")
 
-    with open(input_file, "r", encoding="utf-8") as f_in, open(output_file, "w", encoding="utf-8") as f_out:
+    with open(input_file, "r", encoding="utf-8") as f_in, open(output_file, "a", encoding="utf-8") as f_out:
         for line in f_in:
             entry = json.loads(line.strip())
+
+            #Remove this after
+            # -----------------------------
+            # Ignorer les entrées déjà traitées
+            # -----------------------------
+            if int(entry["id"]) < 220:
+                continue
+
             fname = entry["filename"]
             ext = entry["extension"]
             directory = entry["directory"]
