@@ -45,7 +45,7 @@ try:
             # -----------------------------
             # Ignorer les entrées déjà traitées
             # -----------------------------
-            if int(entry["id"]) < 269:
+            if int(entry["id"]) < 342:
                 continue
 
             fname = entry["filename"]
