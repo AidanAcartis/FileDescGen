@@ -1,4 +1,4 @@
-input_file = "data_file.txt"
+input_file = "../data_file.txt"
 output_file = "Files_list.txt"
 
 files = []
