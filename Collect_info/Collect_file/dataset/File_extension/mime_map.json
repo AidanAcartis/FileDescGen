@@ -1,4 +1,8 @@
 {
+    ".cfg": {
+        "type": "text/plain",
+        "comment": "Configuration file"
+    },
     ".axv": {
         "type": "video/annodex",
         "comment": "Annodex video"

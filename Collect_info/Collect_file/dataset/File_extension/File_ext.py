@@ -10,6 +10,10 @@ def guess_type(filename: str):
     Return the comment related to the file's extension
     """
     _,ext = os.path.splitext(filename.lower())
+    
+    if not ext:  # cas sans extension
+        return "file"
+    
     data = MIME_MAP.get(ext)
     if data:
         return data.get("comment")
