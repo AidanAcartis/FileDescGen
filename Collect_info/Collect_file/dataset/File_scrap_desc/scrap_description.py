@@ -6,7 +6,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-input_file = "../Files_example/Files_list.jsonl"
+input_file = "../../Files_example/Files_list.jsonl"
 output_file = "response.jsonl"
 
 prompt_template = """
