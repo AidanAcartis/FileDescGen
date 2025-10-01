@@ -1,8 +1,8 @@
 import json
 import os
 
-input_file = "../File_scrap_desc/response.jsonl"
-output_file = "file_description.jsonl"
+input_file = "../Get_data_process/File_scrap_desc/response.jsonl"
+output_file = "./file_desc_data/file_description.jsonl"
 
 with open(input_file, "r", encoding="utf-8") as f_in, open(output_file, "w", encoding="utf-8") as f_out:
     for line in f_in:

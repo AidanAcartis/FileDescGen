@@ -67,3 +67,54 @@ print("Fichier 'collected_file.txt' généré avec succès.")"
 
 C'est quoi le probleme ?
 
+Describe the following file in 2 sentences maximum. 
+Include: what it is according to the extension ({ext}), 
+what he does according to his name ({fname}), 
+where it is located ({directory}), 
+which application opens it ({app})
+
+--------------------------------------------------------------------------------
+FILENAME:
+audit_trail
+--------------------------------------------------------------------------------
+REFERENCE DESCRIPTION:
+likely containing records of system activities or user actions for auditing purposes.
+
+--------------------------------------------------------------------------------
+MODEL ZERO-SHOT PREDICTION:
+Audit_trail is a telecommunications company that is headquartered in the city of san francisco, california.
+
+
+--------------------------------------------------------------------------------
+FILENAME:
+migration_script
+--------------------------------------------------------------------------------
+REFERENCE DESCRIPTION:
+likely used to automate or assist with data or system migrations.
+
+--------------------------------------------------------------------------------
+MODEL ZERO-SHOT PREDICTION:
+Migrationscript is a file that contains a migration script.
+
+
+--------------------------------------------------------------------------------
+FILENAME:
+network_settings
+--------------------------------------------------------------------------------
+REFERENCE DESCRIPTION:
+likely containing settings or parameters related to network configuration.
+
+--------------------------------------------------------------------------------
+MODEL ZERO-SHOT PREDICTION:
+Network_settings is a network setting that is used to configure network settings
+
+--------------------------------------------------------------------------------
+FILENAME:
+optimize_cache
+--------------------------------------------------------------------------------
+REFERENCE DESCRIPTION:
+likely used to optimize or clear cached data on the system.
+
+--------------------------------------------------------------------------------
+MODEL ZERO-SHOT PREDICTION:
+Optimize_cache is a file that is used to compress files.
