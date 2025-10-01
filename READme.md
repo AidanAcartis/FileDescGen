@@ -1,5 +1,3 @@
----
-
 # 📂 File Description Training Model
 
 Goals
