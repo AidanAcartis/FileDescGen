@@ -2,8 +2,10 @@
 
 # 📂 File Description Training Model
 
-This project trains a model to **generate human-like descriptions of files** (based on filename, extension, directory, and application).
-It follows a multi-step pipeline: collecting file names, extracting file properties, generating synthetic descriptions, building a dataset, and finally training a fine-tuned model.
+Goals
+
+This is not a full-fledged project; rather, it is an experiment to train a model to generate human-like descriptions from a filename. The idea is to eventually integrate this model into a software application.
+The workflow follows a multi-step pipeline: collecting filenames, extracting file properties, generating synthetic descriptions, building a dataset, and finally training a fine-tuned model.
 
 ---
 
