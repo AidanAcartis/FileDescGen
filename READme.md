@@ -1,6 +1,6 @@
-# 📂 File Description Training Model
+# File Description Training Model
 
-## 🎯 Goal
+## Goal
 
 This project is an **experimental prototype** designed to train a model that generates human-like descriptions from a file name.  
 The aim is to eventually integrate this model into a software tool for file management or analysis.
@@ -9,7 +9,7 @@ The workflow includes multiple steps: collecting filenames, extracting file prop
 
 ---
 
-## 🏗 Project Structure
+## Project Structure
 
 ```
 
@@ -28,7 +28,7 @@ File_Desc_Training_Model/
 
 ---
 
-## 📑 Step 1 – Extract File Properties
+## Step 1 – Extract File Properties
 
 **Location:** `Get_data_process/Get_Files/get_files_proprities.py`
 
@@ -45,7 +45,7 @@ Example output:
 
 ---
 
-## 📚 Step 4 – Build Final Dataset
+## Step 4 – Build Final Dataset
 
 **Location:** `dataset/file-description.py`
 
@@ -62,7 +62,7 @@ Example entry in the final dataset:
 
 ---
 
-## 🧑‍💻 Step 5 – Model Training
+## Step 5 – Model Training
 
 **Location:** `Notebook_Training/File_desc_full_fine_tune.ipynb`
 
@@ -80,7 +80,7 @@ The training process includes:
 
 ---
 
-## ✅ Summary of Workflow
+## Summary of Workflow
 
 1. **Extract properties** → structured JSON (`get_files_proprities.py`)
 2. **Generate descriptions** → AI-generated explanations (`scrap_description.py`)
