@@ -1,6 +1,6 @@
 ---
 
-# 📘 Fine-tuning Flan-T5 with Lexical Embeddings
+# Fine-tuning Flan-T5 with Lexical Embeddings
 
 This repository documents the process of fine-tuning **`google/flan-t5-small`** to generate file descriptions from filenames, enhanced with **lexical embeddings** extracted using `SentenceTransformers`.
 
@@ -20,11 +20,11 @@ The pipeline combines **sequence-to-sequence learning** with **lexical embedding
 This approach improves the model’s ability to **understand filenames and generate more natural, context-aware descriptions**, compared to a base Flan-T5 model without lexical embeddings.
 
 
-# ⚙️ 1. Installation
+# 1. Installation
 
 ---
 
-### 1️⃣ Core Deep Learning
+### 1- Core Deep Learning
 
 ```bash
 !pip install --disable-pip-version-check \
@@ -39,7 +39,7 @@ This approach improves the model’s ability to **understand filenames and gener
 
 ---
 
-### 2️⃣ Transformers & NLP Fine-tuning
+### 2- Transformers & NLP Fine-tuning
 
 ```bash
 !pip install \
@@ -56,7 +56,7 @@ This approach improves the model’s ability to **understand filenames and gener
 
 ---
 
-### 3️⃣ Cloud Storage & Command-line Tools
+### 3 - Cloud Storage & Command-line Tools
 
 ```bash
 !pip install awscli
@@ -66,7 +66,7 @@ This approach improves the model’s ability to **understand filenames and gener
 
 ---
 
-### 4️⃣ Dataset Evaluation
+### 4- Dataset Evaluation
 
 ```bash
 !pip install evaluate
@@ -76,7 +76,7 @@ This approach improves the model’s ability to **understand filenames and gener
 
 ---
 
-### 5️⃣ Dataset Handling
+### 5- Dataset Handling
 
 ```bash
 !pip install --upgrade datasets==4.1.0
@@ -89,7 +89,7 @@ This approach improves the model’s ability to **understand filenames and gener
 
 ---
 
-### 6️⃣ Semantic Embeddings
+### 6- Semantic Embeddings
 
 ```bash
 !pip install -U sentence-transformers
@@ -98,13 +98,12 @@ This approach improves the model’s ability to **understand filenames and gener
 * **sentence-transformers** → Generates **sentence or text embeddings**, which are used to **capture semantic information** of filenames and descriptions, helping the model understand their meaning.
 
 ---
-
-✅ **In short:** These installations set up a **full environment for deep learning, dataset handling, semantic embeddings, model fine-tuning, evaluation, and cloud integration**. Each library plays a crucial role in a stage of the pipeline, from preprocessing to evaluation.
+ **In short:** These installations set up a **full environment for deep learning, dataset handling, semantic embeddings, model fine-tuning, evaluation, and cloud integration**. Each library plays a crucial role in a stage of the pipeline, from preprocessing to evaluation.
 
 
 ---
 
-# 📂 2. Dataset Preparation
+# 2. Dataset Preparation
 
 ---
 
@@ -180,7 +179,7 @@ Without this step, the model would not know which inputs correspond to which out
 
 ---
 
-## 🧠 3. Model & Tokenizer Loading
+## 3. Model & Tokenizer Loading
 
 ---
 
@@ -235,7 +234,7 @@ print("Lexical embedding dim:", embedding_dim)
 
 ---
 
-# 🔄 4. Preprocessing Pipeline
+## 4. Preprocessing Pipeline
 
 ---
 
@@ -360,11 +359,11 @@ DatasetDict({
 
 ---
 
-✅ **In short:** This process **augments T5’s text input with semantic information** about the filenames, helping the model generate more accurate descriptions by combining **lexical meaning** and **text context**.
+ **In short:** This process **augments T5’s text input with semantic information** about the filenames, helping the model generate more accurate descriptions by combining **lexical meaning** and **text context**.
 
 ---
 
-# 🔍 5. Embedding Evaluation
+# 5. Embedding Evaluation
 
 We check **consistency** and **semantic clustering**:
 
@@ -376,7 +375,7 @@ print("Average similarity same filename :", np.mean(same_sims))
 print("Average similarity filename different :", np.mean(diff_sims))
 ```
 
-✅ Output:
+ Output:
 
 ```
 Average similarity same filename : 1.0
@@ -389,7 +388,7 @@ t-SNE clusters similar filenames together.
 ![t-SNE clusters similar filenames](./t-SNE_clusters_similar.png)
 ---
 
-# 🏗 6. Model with Fusion Layer
+# 6. Model with Fusion Layer
 ---
 
 This code extends **Flan-T5**, a sequence-to-sequence language model, to incorporate **lexical embeddings** derived from filenames. The idea is that filenames often contain meaningful semantic cues (e.g., `app_config`, `user_data`) that can help the model generate more accurate file descriptions.
@@ -448,12 +447,12 @@ return self.t5(input_ids=None, attention_mask=attention_mask, labels=labels, inp
 
 ---
 
-✅ **Summary:**
+ **Summary:**
 This module allows your Flan-T5 model to leverage **additional lexical information** without modifying the core architecture. It’s crucial for tasks where filenames provide strong semantic hints, improving downstream description generation accuracy.
 
 ---
 
-# 📦 7. Data Collator
+# 7. Data Collator
 ---
 
 ### **Purpose of `DataCollatorWithFusion`**
@@ -520,7 +519,7 @@ return {
 
 ---
 
-### ✅ **Summary**
+### **Summary**
 
 * The `DataCollatorWithFusion` **prepares batches for training** Flan-T5 with lexical embedding fusion.
 * Handles both standard text inputs and additional semantic cues.
@@ -528,7 +527,7 @@ return {
 
 ---
 
-# 🚀 8. Training
+# 8. Training
 
 ---
 
@@ -628,7 +627,7 @@ Epoch	Training Loss	Validation Loss
 
 ---
 
-✅ **Summary**
+ **Summary**
 
 * This block of code **trains the lexical-fusion T5 model on your dataset**.
 * It combines the text token inputs with semantic embeddings to improve file description generation.
@@ -636,7 +635,7 @@ Epoch	Training Loss	Validation Loss
 
 ---
 
-## 💾 9. Save & Reload
+## 9. Save & Reload
 
 ```python
 trainer.save_model("/content/drive/MyDrive/Gen_Desc_Model/full_finetuned")
@@ -645,7 +644,7 @@ tokenizer.save_pretrained("/content/drive/MyDrive/Gen_Desc_Model/full_finetuned"
 
 ---
 
-## 🧪 10. Evaluation
+## 10. Evaluation
 
 ### Qualitative (example)
 
@@ -710,11 +709,11 @@ rougeLsum: +18.52% (gain)
 
 ---
 
-✅ **Summary:** Fine-tuning with your dataset and lexical embeddings **substantially improves the model's ability to generate accurate and meaningful file descriptions**, especially in capturing individual words and overall structure.
+ **Summary:** Fine-tuning with your dataset and lexical embeddings **substantially improves the model's ability to generate accurate and meaningful file descriptions**, especially in capturing individual words and overall structure.
 
 ---
 
-## ✅ Conclusion
+## Conclusion
 
 * The fusion of **lexical embeddings** improves semantic grounding of generated descriptions.
 * The model captures filename semantics better than the base Flan-T5.
